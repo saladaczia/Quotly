@@ -15,6 +15,9 @@ class QuoteViewModel: ObservableObject {
     
     private var cancellabless = Set<AnyCancellable>()
     
+    init() {
+        fetchQuote()
+    }
     
     func fetchQuote() {
         isLoading = true
