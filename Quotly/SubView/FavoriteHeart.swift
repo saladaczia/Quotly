@@ -59,5 +59,6 @@ struct FavoriteHeart: View {
 
 #Preview {
     FavoriteHeart(content: "test", author: "test")
+        .padding()
         .background(Color.black)
 }

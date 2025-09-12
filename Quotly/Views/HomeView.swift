@@ -42,7 +42,11 @@ struct HomeView: View {
 extension HomeView {
     func textComponent() -> some View {
         VStack {
-            if let quote = vm.quote {
+            if vm.isLoading {
+                Spacer()
+                ProgressView()
+                Spacer()
+            } else if let quote = vm.quote {
                 Text(quote.content)
                     .font(.title)
                     .bold()
