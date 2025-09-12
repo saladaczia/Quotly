@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
-    
+    // View model StateObject
     @StateObject private var vm = QuoteViewModel()
+    // Bool for favorite button
     @State var isFavorite: Bool = false
     
     var body: some View {
@@ -19,25 +20,19 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
+                
                 VStack {
-                    Text(vm.quote?.content ?? "")
-                        .font(.title)
-                        .bold()
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .padding(.top,90)
-                        .foregroundStyle(.white)
-                    Text(vm.quote?.author ?? "")
-                        .foregroundStyle(.white)
+                    // View Quote
+                    textComponent()
                     Spacer()
-                    
-                    TabBar()
-                    
+                    // View Buttons
+                    tabBarComponent()
                 }
                 .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height)
             }
+            // ZStack End
         }
-        
+        // Navigation Stack End
     }
 }
 
@@ -45,10 +40,29 @@ struct HomeView: View {
     HomeView()
 }
 
+extension HomeView {
+    func textComponent () -> some View {
+        VStack {
+            // Quoute
+            Text(vm.quote?.content ?? "")
+                .font(.title)
+                .bold()
+                .multilineTextAlignment(.center)
+                .padding()
+                .padding(.top,90)
+                .foregroundStyle(.white)
+            // Author
+            Text("- \(vm.quote?.author ?? "")")
+                .foregroundStyle(.white)
+        }
+    }
+}
+
 // - MARK: TabBar View -
 extension HomeView {
-    func TabBar () -> some View {
+    func tabBarComponent () -> some View {
         HStack {
+            // 1st button (add to favorite list)
             Button {
                 isFavorite.toggle()
             } label: {
@@ -56,9 +70,10 @@ extension HomeView {
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.white)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 35, height: 35)
             }
             Spacer()
+            // 2nd button (change quote)
             Button {
                 vm.fetchQuote()
                 isFavorite = false
@@ -67,9 +82,10 @@ extension HomeView {
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.white)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 50, height: 50)
             }
             Spacer()
+            // 3rd button (view favorite list - navigation link)
             NavigationLink {
                 FavoriteView()
             } label: {
@@ -77,7 +93,7 @@ extension HomeView {
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.white)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 35, height: 35)
             }
         }
         .padding()

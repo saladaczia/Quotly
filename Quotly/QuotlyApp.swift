@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct QuotlyApp: App {
@@ -13,5 +14,6 @@ struct QuotlyApp: App {
         WindowGroup {
             HomeView()
         }
+        .modelContainer(for: FavoriteQuote.self)
     }
 }
