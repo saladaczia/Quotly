@@ -10,8 +10,7 @@ import SwiftUI
 struct HomeView: View {
     // View model StateObject
     @StateObject private var vm = QuoteViewModel()
-    // Bool for favorite button
-    @State var isFavorite: Bool = false
+    
     
     var body: some View {
         NavigationStack {
@@ -63,20 +62,11 @@ extension HomeView {
     func tabBarComponent () -> some View {
         HStack {
             // 1st button (add to favorite list)
-            Button {
-                isFavorite.toggle()
-            } label: {
-                Image(systemName: isFavorite ? "heart.fill" : "heart")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(.white)
-                    .frame(width: 35, height: 35)
-            }
+            FavoriteHeart(content: vm.quote?.content ?? "", author: vm.quote?.author ?? "")
             Spacer()
             // 2nd button (change quote)
             Button {
                 vm.fetchQuote()
-                isFavorite = false
             } label: {
                 Image(systemName: "arrow.trianglehead.2.clockwise")
                     .resizable()
