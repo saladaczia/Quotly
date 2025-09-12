@@ -12,11 +12,11 @@ import SwiftData
 class FavoriteQuote {
     var content: String
     var author: String
-    var createAt: Date
+    var createdAt: Date
     
-    init(content: String, author: String, createAt: Date = .now) {
+    init(content: String, author: String, createdAt: Date = .now) {
         self.content = content
         self.author = author
-        self.createAt = createAt
+        self.createdAt = createdAt
     }
 }
