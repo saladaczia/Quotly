@@ -40,23 +40,29 @@ struct HomeView: View {
 }
 
 extension HomeView {
-    func textComponent () -> some View {
+    func textComponent() -> some View {
         VStack {
-            // Quoute
-            Text(vm.quote?.content ?? "")
-                .font(.title)
-                .bold()
-                .multilineTextAlignment(.center)
-                .padding()
-                .padding(.top,90)
-                .foregroundStyle(.white)
-            // Author
-            Text("- \(vm.quote?.author ?? "")")
-                .foregroundStyle(.white)
+            if let quote = vm.quote {
+                Text(quote.content)
+                    .font(.title)
+                    .bold()
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .padding(.top, 90)
+                    .foregroundStyle(.white)
+                
+                Text("- \(quote.author)")
+                    .foregroundStyle(.white)
+            } else {
+                // Placeholder when there's no quote
+                Text("No quote available")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 90)
+            }
         }
     }
 }
-
 // - MARK: TabBar View -
 extension HomeView {
     func tabBarComponent () -> some View {
