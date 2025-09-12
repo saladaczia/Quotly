@@ -42,11 +42,7 @@ struct HomeView: View {
 extension HomeView {
     func textComponent() -> some View {
         VStack {
-            if vm.isLoading {
-                Spacer()
-                ProgressView()
-                Spacer()
-            } else if let quote = vm.quote {
+            if let quote = vm.quote {
                 Text(quote.content)
                     .font(.title)
                     .bold()
@@ -81,8 +77,15 @@ extension HomeView {
                 Image(systemName: "arrow.trianglehead.2.clockwise")
                     .resizable()
                     .scaledToFit()
-                    .foregroundStyle(.white)
                     .frame(width: 50, height: 50)
+                    .foregroundStyle(.white)
+                    .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0)) // obrót
+                    .animation(
+                        vm.isLoading
+                        ? .linear(duration: 1).repeatForever(autoreverses: false)
+                        : .default,
+                        value: vm.isLoading
+                    )
             }
             Spacer()
             // 3rd button (view favorite list - navigation link)
