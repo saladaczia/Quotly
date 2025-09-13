@@ -12,18 +12,18 @@ import SwiftData
 struct FavoriteHeart: View {
     @Environment(\.modelContext) private var context
     
-    let content: String // Quote text
+    let quote: String // Quote text
     let author: String // Quote author
     
     // Check if this quote is already in favorites
     @Query private var matches: [FavoriteQuote]
     
-    init(content: String, author: String) {
-        self.content = content
+    init(quote: String, author: String) {
+        self.quote = quote
         self.author = author
         _matches = Query(
             filter: #Predicate<FavoriteQuote> { fav in
-                fav.content == content && fav.author == author
+                fav.quote == quote && fav.author == author
             }
         )
     }
@@ -51,14 +51,14 @@ struct FavoriteHeart: View {
         if let existing = matches.first {
             context.delete(existing)
         } else {
-            context.insert(FavoriteQuote(content: content, author: author))
+            context.insert(FavoriteQuote(quote: quote, author: author))
         }
         try? context.save()
     }
 }
 
 #Preview {
-    FavoriteHeart(content: "test", author: "test")
+    FavoriteHeart(quote: "test", author: "test")
         .padding()
         .background(Color.black)
 }

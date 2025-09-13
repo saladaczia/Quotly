@@ -31,7 +31,7 @@ struct FavoriteView: View {
                 List {
                     ForEach(quotes) { quote in
                         VStack(alignment: .leading) {
-                            Text(quote.content)
+                            Text("„\(quote.quote)”")
                                 .font(.headline)
                             Text("- \(quote.author)")
                                 .font(.caption)

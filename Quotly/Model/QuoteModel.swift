@@ -6,6 +6,6 @@
 //
 
 struct QuoteModel: Decodable {
-    let content: String
+    let quote: String
     let author: String
 }

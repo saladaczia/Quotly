@@ -42,8 +42,8 @@ struct HomeView: View {
 extension HomeView {
     func textComponent() -> some View {
         VStack {
-            if let quote = vm.quote {
-                Text(quote.content)
+            if let quote = vm.quotes {
+                Text("„\(quote.quote)”")
                     .font(.title)
                     .bold()
                     .multilineTextAlignment(.center)
@@ -68,7 +68,7 @@ extension HomeView {
     func tabBarComponent () -> some View {
         HStack {
             // 1st button (add to favorite list)
-            FavoriteHeart(content: vm.quote?.content ?? "", author: vm.quote?.author ?? "")
+            FavoriteHeart(quote: vm.quotes?.quote ?? "", author: vm.quotes?.author ?? "")
             Spacer()
             // 2nd button (change quote)
             Button {

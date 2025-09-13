@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class QuoteViewModel: ObservableObject {
-    @Published var quote: QuoteModel?
+    @Published var quotes: QuoteModel?
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
@@ -23,7 +23,7 @@ class QuoteViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        let url = URL(string: "http://api.quotable.io/random")!
+        let url = URL(string: "https://dummyjson.com/quotes/random")!
         
         URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
@@ -36,7 +36,7 @@ class QuoteViewModel: ObservableObject {
                     self?.errorMessage = error.localizedDescription
                 }
             } receiveValue: { [weak self] quote in
-                self?.quote = quote
+                self?.quotes = quote
             }
             .store(in: &cancellabless)
     }
