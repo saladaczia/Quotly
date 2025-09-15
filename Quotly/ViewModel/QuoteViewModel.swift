@@ -34,6 +34,7 @@ class QuoteViewModel: ObservableObject {
                 
                 if case .failure(let error) = completion {
                     self?.errorMessage = error.localizedDescription
+                    self?.isLoading = true
                 }
             } receiveValue: { [weak self] quote in
                 self?.quotes = quote

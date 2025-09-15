@@ -53,9 +53,9 @@ extension HomeView {
                 
                 Text("- \(quote.author)")
                     .foregroundStyle(.white)
-            } else {
+            } else if vm.errorMessage != nil {
                 // Placeholder when there's no quote
-                Text("No quote available")
+                Text("No quote available. Please check your internet connection.")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                     .padding(.top, 90)
