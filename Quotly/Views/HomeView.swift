@@ -10,15 +10,16 @@ import SwiftUI
 struct HomeView: View {
     // View model StateObject
     @StateObject private var vm = QuoteViewModel()
-    
+    @State var backgroundImageNumer: Int = Int.random(in: 1...7)
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("bg1")
+                Image("bg\(backgroundImageNumer)")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
+                    
                 
                 VStack {
                     // View Quote
@@ -50,12 +51,18 @@ extension HomeView {
                     .padding()
                     .padding(.top, 90)
                     .foregroundStyle(.white)
+                    .shadow(color: .black, radius: 10)
                 
                 Text("- \(quote.author)")
                     .foregroundStyle(.white)
+                    .shadow(color: .black, radius: 10)
             } else if vm.errorMessage != nil {
                 // Placeholder when there's no quote
-                Text("No quote available. Please check your internet connection.")
+                Text("No quote available.")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 90)
+                Text("Please check your internet connection.")
                     .font(.headline)
                     .foregroundStyle(.secondary)
                     .padding(.top, 90)
@@ -73,6 +80,7 @@ extension HomeView {
             // 2nd button (change quote)
             Button {
                 vm.fetchQuote()
+                backgroundImageNumer = Int.random(in: 1...7)
             } label: {
                 Image(systemName: "arrow.trianglehead.2.clockwise")
                     .resizable()
